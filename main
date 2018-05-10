@@ -1,0 +1,89 @@
+#include <iostream>
+#include <cstring>
+#include "zad1.h"
+
+using namespace std;
+
+int main()
+{
+    //масив от вектори, в който се записват n-те входни вектора
+    Vector3D vectorArray[10000];
+
+    //низ за операцията, която ще се изпълни върху входните вектори
+    char operation[6];
+
+    cin.getline(operation, 5, ' ');
+
+    //брой входни вектори
+    int n;
+    cin >> n;
+
+    //въвеждаме на n-те вектора
+    for(int i=0; i<n; ++i)
+    {
+        cin >> vectorArray[i];
+    }
+
+    //проверка и изпълнеие на операцията върху векторите
+    if(!strcmp(operation, "+"))
+    {
+        Vector3D newVector;
+        for(int i=0; i<n; ++i)
+        {
+            newVector = newVector + vectorArray[i];
+        }
+        cout << newVector;
+    }
+    else if(!strcmp(operation, "-"))
+    {
+        Vector3D newVector(vectorArray[0]);
+        for(int i=1; i<n; ++i)
+        {
+            newVector = newVector - vectorArray[i];
+        }
+        cout << newVector;
+    }
+    else if(!strcmp(operation, "NEG"))
+    {
+        for(int i=0; i<n; ++i)
+        {
+           cout << -vectorArray[i];
+           if(i < n-1)
+			 cout << " ";
+        }
+    }
+    else if(operation[0] == '*')
+    {
+        int num = 0, size = strlen(operation);
+        for(int i=1; i < size; ++i)
+        {
+            num += (operation[i]-'0');
+            if(i < size-1)
+                num = num*10;
+        }
+        for(int i=0; i<n; ++i)
+		{
+			cout << vectorArray[i]*num;
+			if(i < n-1)
+			 cout << " ";
+		}
+    }
+    else
+    {
+        int num = 0, size = strlen(operation)-1;
+        for(int i=0; i < size; ++i)
+        {
+            num += (operation[i]-'0');
+            if(i < size-1)
+                num = num*10;
+        }
+        for(int i=0; i<n; ++i)
+		{
+			cout << vectorArray[i]*num;
+			if(i < n-1)
+			 cout << " ";
+		}
+    }
+
+    return 0;
+}
